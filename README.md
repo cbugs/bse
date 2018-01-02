@@ -1,2 +1,2 @@
 # bse
-Buy Sell Exchange Prototype
+Buy Sell Exchange DJango Prototype
