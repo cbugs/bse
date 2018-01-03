@@ -1,0 +1,16 @@
+{% extends 'buysell/base.html' %} 
+{% block title %}Add a new Product{% endblock %} 
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1 class="text-center text-primary">Add a new Product</h1>
+                    {% include 'buysell/form.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

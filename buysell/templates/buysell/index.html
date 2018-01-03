@@ -1,0 +1,73 @@
+{% extends 'buysell/base.html' %} 
+{% block content %}
+<div class="row no-gutters">
+    <div class="col-md-3">
+        <form method="get" id="search-form" action="{% url 'buysell:index' %}">
+            <input type="hidden" id="page" name="page" value="1" />
+            <div class="row no-gutters m-3">
+                <div class="col-md-12 text-center">
+                    <div class="form-inline mb-1">
+                        <input name="keyword" class="form-control" id="search-keyword" type="text" placeholder="Search" value="{{ q_keyword }}">
+                        <button class="btn btn-outline-success" id="btn-search" type="submit">
+                            <i class="fa fa-search"></i>
+                            </i>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-type btn-sm btn{% if 'buy' not in q_type %}-outline{% endif %}-warning my-2 my-sm-0 btn-checkbox-type" name="buy">
+                        <input {% if "buy" in q_type %}checked="checked" {% endif %} type="checkbox" name="type" value="buy" style="display:none;">Buy
+                    </button>
+                    <button type="button" class="btn btn-type btn-sm btn{% if 'sell' not in q_type %}-outline{% endif %}-warning my-2 my-sm-0 btn-checkbox-type" name="sell">
+                        <input {% if "sell" in q_type %}checked="checked" {% endif %} type="checkbox" name="type" value="sell" style="display:none;">Sell
+                    </button>
+                    <button type="button" class="btn btn-type btn-sm btn{% if 'exchange' not in q_type %}-outline{% endif %}-warning my-2 my-sm-0 mb-1 btn-checkbox-type">
+                        <input {% if "exchange" in q_type %}checked="checked" {% endif %} type="checkbox" name="type" value="exchange" style="display:none;">Exchange
+                    </button>
+                </div>
+            </div>
+            <div class="list-group">
+                {% for category in categories %}
+                <a href="#" class="checkbox-category list-group-item {% if category.id|stringformat:'i' in q_category %}active{% endif %}">
+                    <input {% if category.id|stringformat:'i' in q_category %}checked="checked" {% endif %} type="checkbox" name="category" value="{{ category.id }}" style="display:none;"> {{ category.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        {% if products %}
+            <div class="card-columns">
+                {% for product in products %}
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">{{ product.name }}</h4>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text">
+                            <b class="text-muted text-success">Rs {{ product.price|floatformat:2 }}</b> ({{product.product_type}})</p>
+                        <p class="card-text">
+                            <small>{{ product.modified_date }}</small>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="pagination">
+                        {% if products.has_previous %}
+                        <button class="btn-paginate btn btn-sm btn-outline-primary" data-page="{{ products.previous_page_number }}">Prev</button>
+                        {% endif %} {% for page in products.paginator.page_range %}
+                        <button class="btn-paginate btn btn-sm {% if products.number == page  %}btn-primary{% else %}btn-outline-primary{% endif %}"
+                            data-page="{{ page }}">{{ page }}</button>
+                        {% endfor %} {% if products.has_next %}
+                        <button class="btn btn-sm btn-outline-primary btn-paginate" data-page="{{ products.next_page_number }}">Next</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <h1 class="text-danger text-center"> No results found </h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

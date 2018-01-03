@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}BuySellExchange{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Euphoria+Script" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> {% load static %}
+    <link rel="stylesheet" href="{% static 'buysell/style.css' %}" />
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg- navbar-bottom">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand font-logo" href="{% url 'buysell:index' %}">BuySellExchange</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item m-1">
+                    <a class="btn btn-outline-info my-2 my-sm-0" href="{% url 'buysell:product_add' %}">Add Product</a>
+                </li>
+                <li class="nav-item m-1">
+                    <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'buysell:user_product' %}">My Products</a>
+                </li>
+                <li class="nav-item m-1">
+                    <a class="btn btn-outline-danger my-2 my-sm-0" href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item m-1">
+                    <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'accounts:login' %}">Login</a>
+                </li>
+                <li class="nav-item m-1">
+                    <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'accounts:register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div id="wrapper">
+        {% block content %} {% endblock %}
+        <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page"
+            data-toggle="tooltip" data-placement="left">
+            <span class="fa fa-chevron-up"></span>
+        </a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'buysell/script.js' %}"></script>
+</body>
+
+</html>

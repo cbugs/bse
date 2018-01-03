@@ -1,0 +1,8 @@
+{% extends 'buysell/base.html' %} 
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <h2>Are you sure you want to delete "{{ object }}"?</h2>
+    <input class="btn btn-danger" type="submit" value="Confirm" />
+    <a href="{% url 'buysell:user_product' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

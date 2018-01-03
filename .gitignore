@@ -1,0 +1,6 @@
+media/*
+!media/.gitignore
+bse/local_settings.py
+categories.json
+confusables.json
+db.sqlite3

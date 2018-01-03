@@ -1,0 +1,5 @@
+{% extends 'buysell/base.html' %}
+{% block content %}
+    {% include 'buysell/form.html' %}
+    <div class="text-center"><a href="{% url 'password_reset' %}">Forgot Password?</a></div>
+{% endblock %}

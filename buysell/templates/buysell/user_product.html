@@ -1,0 +1,35 @@
+{% extends 'buysell/base.html' %} 
+{% block content %} 
+  {% if products %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Last Updated</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.modified_date }}</td>
+          <td>
+            <a href="{% url 'buysell:product_update' product.pk %}" class="btn btn-primary">
+              <i class="fa fa-pencil"></i>
+            </a>
+          </td>
+          <td>
+            <a class="btn btn-danger" href="{% url 'buysell:product_delete' product.pk %}">
+              <i class="fa fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3 class="text-center">No products. Click <a href="{% url 'buysell:product_add' %}">here</a> to add a product.</h3> 
+  {% endif %} 
+{% endblock %}
